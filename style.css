@@ -1,4 +1,4 @@
-.array{
+.arr{
   background-color: green;
   display: flex;
   flex-wrap: wrap;
@@ -6,7 +6,7 @@
   width: 720px;
 }
 
-.array div {
+.arr div {
   height: 90px;
   width: 90px;
 }
