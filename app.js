@@ -19,4 +19,36 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   drawBoard()
+
+  // Move candies
+  candies.forEach(candy => candy.addEventListener('dragstart', dragStart))
+  candies.forEach(candy => candy.addEventListener('dragend', dragEnd))
+  candies.forEach(candy => candy.addEventListener('dragover', dragOver))
+  candies.forEach(candy => candy.addEventListener('dragenter', dragEnter))
+  candies.forEach(candy => candy.addEventListener('dragleave', dragLeave))
+  candies.forEach(candy => candy.addEventListener('drop', dragDrop))
+
+  function dragStart () {
+    console.log(this.id, 'dragstart')
+  }
+
+  function dragEnd () {
+    console.log(this.id, 'dragend')
+  }
+
+  function dragOver () {
+    console.log(this.id, 'dragover')
+  }
+
+  function dragEnter () {
+    console.log(this.id, 'dragenter')
+  }
+
+  function dragLeave () {
+    console.log(this.id, 'dragleave')
+  }
+
+  function dragDrop () {
+    console.log(this.id, 'dragdrop')
+  }
 })
