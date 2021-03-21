@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function drawBoard () {
     for (let i = 0; i < Math.pow(width, 2); i++) {
       const candy = document.createElement('div')
+      candy.setAttribute('draggable', true)
+      candy.setAttribute('id', i)
       let randomizeColors = Math.floor(Math.random() * candyColors.length)
       candy.style.background = candyColors[randomizeColors]
       arr.appendChild(candy)
