@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
       candy.setAttribute('draggable', true)
       candy.setAttribute('id', i)
       let randomizeColors = Math.floor(Math.random() * candyColors.length)
-      candy.style.background = candyColors[randomizeColors]
+      candy.style.backgroundColor = candyColors[randomizeColors]
       arr.appendChild(candy)
       candies.push(candy)
     }
@@ -21,6 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
   drawBoard()
 
   // Move candies
+  let colorPicked
+  let colorToSwap
+  let candyIdPicked
+  let candyIdSwapped
+
   candies.forEach(candy => candy.addEventListener('dragstart', dragStart))
   candies.forEach(candy => candy.addEventListener('dragend', dragEnd))
   candies.forEach(candy => candy.addEventListener('dragover', dragOver))
@@ -29,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
   candies.forEach(candy => candy.addEventListener('drop', dragDrop))
 
   function dragStart () {
+    colorPicked = this.style.backgroundColor
+    candyIdPicked = parseInt(this.id)
     console.log(this.id, 'dragstart')
   }
 
@@ -50,5 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function dragDrop () {
     console.log(this.id, 'dragdrop')
+    colorToSwap = this.style.backgroundColor
+    candyIdSwapped = parseInt(this.id)
+    candies[candyIdPicked].style.backgroundColor = colorToSwap
   }
 })
