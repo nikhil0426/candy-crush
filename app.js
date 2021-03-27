@@ -155,4 +155,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   checkColumnForFour()
+
+  // run each check, update score, then fill in blanks
+  window.setInterval(function () {
+    checkRowForFour()
+    checkColumnForFour()
+    checkRowForThree()
+    checkColumnForThree()
+    moveCandyDown()
+  }, 100)
 })
