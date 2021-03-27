@@ -122,4 +122,37 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
+  checkColumnForThree()
+
+  // row of four
+  function checkRowForFour () {
+    for (let i = 0; i < 60; i++) {
+      let rowOfFour = [i, i+1, i+2, i+3]
+      let decideColor = candies[i].style.backgroundColor
+      const blank = candies[i].style.backgroundColor === ''
+      const invalid = [5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54, 55]
+      if (invalid.includes(i)) continue
+      if (rowOfFour.every(index => candies[index].style.backgroundColor === decideColor && !blank)) {
+        score += 4
+        displayScore.innerHTML = score
+        rowOfFour.forEach(index => { candies[index].style.backgroundColor = '' })
+      }
+    }
+  }
+  checkRowForFour()
+
+  // column of four
+  function checkColumnForFour () {
+    for (let i = 0; i < 39; i++) {
+      let columnOfFour = [i, i + width, i + width * 2, i + width * 3]
+      let decideColor = candies[i].style.backgroundColor
+      const blank = candies[i].style.backgroundColor === ''
+      if (columnOfFour.every(index => candies[index].style.backgroundColor === decideColor && !blank)) {
+        score += 4
+        displayScore.innerHTML = score
+        columnOfFour.forEach(index => { candies[index].style.backgroundColor = '' })
+      }
+    }
+  }
+  checkColumnForFour()
 })
