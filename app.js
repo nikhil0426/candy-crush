@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   const arr = document.querySelector('.arr')
+  const displayScore = document.getElementById('score')
   const width = 8
   const candies = []
+  let score = 0
 
   const candyColors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
 
@@ -17,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
       candies.push(candy)
     }
   }
-
   drawBoard()
 
   // Move candies
@@ -36,29 +37,41 @@ document.addEventListener('DOMContentLoaded', () => {
   function dragStart () {
     colorPicked = this.style.backgroundColor
     candyIdPicked = parseInt(this.id)
-    console.log(this.id, 'dragstart')
   }
 
   function dragEnd () {
-    console.log(this.id, 'dragend')
+    // Check to see if a valid move or not
+    let holdValid = [candyIdPicked - 1, candyIdPicked - width, candyIdPicked + 1, candyIdPicked + width]
+    let isValid = holdValid.includes(candyIdSwapped)
+
+    if (candyIdSwapped && isValid) {
+      candyIdSwapped = null
+    } else if (candyIdSwapped && !isValid) {
+      candies[candyIdSwapped].style.backgroundColor = colorToSwap
+      candies[candyIdPicked].style.backgroundColor = colorPicked
+    } else {
+      candies[candyIdPicked].style.backgroundColor = colorPicked
+    }
   }
 
-  function dragOver () {
-    console.log(this.id, 'dragover')
+  function dragOver (e) {
+    e.preventDefault()
   }
 
-  function dragEnter () {
-    console.log(this.id, 'dragenter')
+  function dragEnter (e) {
+    e.preventDefault()
   }
 
   function dragLeave () {
-    console.log(this.id, 'dragleave')
+    this.style.backgroundColor = ''
   }
 
   function dragDrop () {
-    console.log(this.id, 'dragdrop')
     colorToSwap = this.style.backgroundColor
     candyIdSwapped = parseInt(this.id)
+    this.style.backgroundColor = colorPicked
     candies[candyIdPicked].style.backgroundColor = colorToSwap
   }
+
+  // make more candies once selection has been cleared
 })
