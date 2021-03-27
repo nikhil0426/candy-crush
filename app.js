@@ -74,4 +74,52 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // make more candies once selection has been cleared
+  function moveCandyDown () {
+    for (i = 0; i < 55; i++) {
+      if (candies[i + width].style.backgroundColor === '') {
+        candies[i + width].style.backgroundColor = candies[i].style.backgroundColor
+        candies[i].style.backgroundColor = ''
+        const rowOne = [0,1,2,3,4,5,6,7]
+        const isRowOne = rowOne.includes(i)
+        if (isRowOne && (candies[i].style.backgroundColor === '')) {
+          let colorRandom = Math.floor(Math.random() * candyColors.length)
+          candies[i].style.backgroundColor = candyColors[colorRandom]
+        }
+      }
+    }
+  }
+
+  // Sets of functions to find matches
+  // four needed, find rows and columns of both three and four in a row
+
+  // row of three
+  function checkRowForThree () {
+    for (let i = 0; i < 61; i++) {
+      let rowOfThree = [i, i + 1, i + 2]
+      let decideColor = candies[i].style.backgroundColor
+      const blank = candies[i].style.backgroundColor === ''
+      const invalid = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55]
+      if (invalid.includes(i)) continue
+      if (rowOfThree.every(index => candies[index].style.backgroundColor === decideColor && !blank)) {
+        score += 3
+        displayScore.innerHTML = score
+        rowOfThree.forEach(index => { candies[i].style.backgroundColor = '' })
+      }
+    }
+  }
+  checkRowForThree()
+
+  // column of three
+  function checkColumnForThree () {
+    for (let i = 0; i < 47; i++) {
+      let columnOfThree = [i, i + width, i + width * 2]
+      let decideColor = candies[i].style.backgroundColor
+      const blank = candies[i].style.backgroundColor === ''
+      if (columnOfThree.every(index => candies[index].style.backgroundColor === decideColor && !blank)) {
+        score += 3
+        displayScore.innerHTML = score
+        columnOfThree.forEach(index => { candies[index].style.backgroundColor = '' })
+      }
+    }
+  }
 })
